@@ -68,4 +68,27 @@ export class ParkingSpotsService {
   remove(id: string) {
     return this.prismaService.parkingSpot.delete({ where: { id } });
   }
+
+  async findAvailableParkingSpots() {
+    const parkingSpot = await this.prismaService.parkingSpot.findFirst({
+      where: { available: true },
+      select: { id: true, available: true },
+    });
+
+    if (!parkingSpot) {
+      throw new NotFoundException('No parking spot available!');
+    }
+
+    const { id, available } = parkingSpot;
+    await this.changeAvailableStatus(id, available);
+
+    return parkingSpot.id;
+  }
+
+  changeAvailableStatus(id: string, currentStatus: boolean) {
+    return this.prismaService.parkingSpot.update({
+      where: { id },
+      data: { available: !currentStatus },
+    });
+  }
 }

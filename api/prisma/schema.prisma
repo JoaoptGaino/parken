@@ -16,21 +16,22 @@ model ParkingSpot {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  available Boolean  @default(true)
 
-  Receipt Receipt?
+  Receipt Receipt[]
+
   @@map("parking_spots")
 }
 
 model Receipt {
   id String @id @default(uuid())
 
-  parkingSpotId String @unique @map("parking_spot_id")
+  parkingSpotId String @map("parking_spot_id")
 
   totalValue Decimal? @map("total_value")
 
-  checkIn  DateTime @default(now()) @map("check_in")
-  checkOut DateTime
-
+  checkIn  DateTime  @default(now()) @map("check_in")
+  checkOut DateTime?
 
   ParkingSpot ParkingSpot @relation(fields: [parkingSpotId], references: [id])
 

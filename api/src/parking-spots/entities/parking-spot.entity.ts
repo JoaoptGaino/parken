@@ -6,9 +6,9 @@ export class ParkingSpotEntity {
   createdAt: Date;
   updatedAt: Date;
 
-  Receipt: Receipt;
+  Receipt: Receipt[];
 
-  constructor(parkingSpot: ParkingSpot & { Receipt?: Receipt }) {
+  constructor(parkingSpot: ParkingSpot & { Receipt?: Receipt[] }) {
     this.id = parkingSpot.id;
     this.identification = parkingSpot.identification;
     this.createdAt = parkingSpot.createdAt;
