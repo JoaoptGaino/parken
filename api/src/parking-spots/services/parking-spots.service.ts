@@ -68,4 +68,20 @@ export class ParkingSpotsService {
   remove(id: string) {
     return this.prismaService.parkingSpot.delete({ where: { id } });
   }
+
+  async findAvailableParkingSpots() {
+    const receipts = await this.prismaService.receipt.findMany({
+      include: { ParkingSpot: true },
+    });
+
+    const avaiableSpots = receipts.filter(
+      (receipt) => receipt.checkOut !== null,
+    );
+
+    if (!avaiableSpots.length) {
+      throw new NotFoundException('No parking spots avaiable');
+    }
+
+    return avaiableSpots[0];
+  }
 }
