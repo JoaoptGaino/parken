@@ -70,18 +70,25 @@ export class ParkingSpotsService {
   }
 
   async findAvailableParkingSpots() {
-    const receipts = await this.prismaService.receipt.findMany({
-      include: { ParkingSpot: true },
+    const parkingSpot = await this.prismaService.parkingSpot.findFirst({
+      where: { available: true },
+      select: { id: true, available: true },
     });
 
-    const avaiableSpots = receipts.filter(
-      (receipt) => receipt.checkOut !== null,
-    );
-
-    if (!avaiableSpots.length) {
-      throw new NotFoundException('No parking spots avaiable');
+    if (!parkingSpot) {
+      throw new NotFoundException('No parking spot available!');
     }
 
-    return avaiableSpots[0];
+    const { id, available } = parkingSpot;
+    await this.changeAvailableStatus(id, available);
+
+    return parkingSpot.id;
+  }
+
+  changeAvailableStatus(id: string, currentStatus: boolean) {
+    return this.prismaService.parkingSpot.update({
+      where: { id },
+      data: { available: !currentStatus },
+    });
   }
 }
