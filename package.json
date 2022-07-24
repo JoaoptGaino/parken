@@ -1,0 +1,22 @@
+{
+  "name": "parken-nest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "repository": "https://github.com/JoaoptGaino/parken.git",
+  "author": "joao.gaino <joao.gaino@eurekalabs.com.br>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev"
+  },
+  "dependencies": {
+    "turbo": "^1.3.4"
+  }
+}
