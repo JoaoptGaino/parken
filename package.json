@@ -4,7 +4,7 @@
   "main": "index.js",
   "private": true,
   "repository": "https://github.com/JoaoptGaino/parken.git",
-  "author": "joao.gaino <joao.gaino@eurekalabs.com.br>",
+  "author": "joao.gaino <joaoptgaino@hotmail.com.br>",
   "license": "MIT",
   "workspaces": [
     "packages/*",
