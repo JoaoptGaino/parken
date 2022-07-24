@@ -17,6 +17,11 @@
     "dev": "turbo run dev",
     "prepare": "husky install ./.husky"
   },
+  "lint-staged": {
+    "*.{js,json,css,scss,html,md}": [
+      "prettier --write"
+    ]
+  },
   "dependencies": {
     "turbo": "^1.3.4"
   },
